@@ -21,6 +21,9 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
+import EditProfile from './components/edit-profile/EditProfile';
+import AddExperience from './components/add-credentials/AddExperience';
+import AddEducation from './components/add-credentials/AddEducation';
 
 import './App.css';
 
@@ -39,10 +42,10 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     // logout the user
-    store.dispatch(logoutUser);
+    store.dispatch(logoutUser());
 
     // Clear current profile state
-    store.dispatch(clearCurrentProfile);
+    store.dispatch(clearCurrentProfile());
 
     // Redirect to login
     window.location.href = '/login';
@@ -71,6 +74,27 @@ class App extends Component {
                   exact
                   path="/create-profile"
                   component={CreateProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
                 />
               </Switch>
             </div>
